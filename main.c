@@ -5,6 +5,7 @@
 // Prototypes:
 void COM_Init(void);
 void TXString(*char, unsigned int);
+void transmitData(unsigned int);
 
 // Ancillary functions
 
@@ -69,6 +70,39 @@ void TXString(*char string, unsigned int len)
         UCA0TXBUF = string[pointer];        // Fill the buffer with this character
         while (!(IFG2 & UCA0TXIFG));        // Hold until ready
     }
+}
+
+/*
+    Convert this data and transmit via serial
+*/
+void transmitData(unsigned int data)
+{
+    // Offset Idx:    012345678901234567890123
+    char output[] = {"0000000000000000 (00000)"};
+    unsigned int mask 0x8000;
+    int n;
+    
+    // Binary sequence
+    for (n = 0; n < 16; n++)
+    {
+        if (mask & data)
+            output[n] = '1';
+        mask = (mask >> 1) & 0x7FFF;
+    }
+    
+    // Now translate the number to text
+    output[22] = '0' + (data % 10);
+    data /= 10;
+    output[21] = '0' + (data % 10);
+    data /= 10;
+    output[20] = '0' + (data % 10);
+    data /= 10;
+    output[19] = '0' + (data % 10);
+    data /= 10;
+    output[18] = '0' + (data % 10);
+    
+    // Transmit via serial
+    TXString(output, 24);
 }
 
 /*
