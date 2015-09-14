@@ -4,7 +4,7 @@
 
 // Prototypes:
 void COM_Init(void);
-
+void TXString(*char, unsigned int);
 
 // Ancillary functions
 
@@ -55,6 +55,20 @@ void COM_Init(void)
     UCA0CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
     IE2 |= UCA0RXIE;                          // Enable USCI_A0 RX interrupt
     __enable_interrupt();
+}
+
+/*
+    Transmit a string
+*/
+void TXString(*char string, unsigned int len)
+{
+    unsigned int ptr;
+    
+    for (pointer = 0; pointer < len; pointer++)
+    {
+        UCA0TXBUF = string[pointer];        // Fill the buffer with this character
+        while (!(IFG2 & UCA0TXIFG));        // Hold until ready
+    }
 }
 
 /*
