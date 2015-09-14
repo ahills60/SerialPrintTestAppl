@@ -8,6 +8,8 @@ void TXString(*char, unsigned int);
 void transmitData(unsigned int);
 void lfsr_16_14(void);
 
+__interrupt void Timer_Tick(void);
+
 // Global variables
 unsigned int LFSR_WORD = 0x0001;
 
@@ -121,6 +123,17 @@ void lfsr_16_14(void)
     
     LFSR_WORD = (LFSR_WORD >> 1) | (bit << 13);
 }
+
+/*
+    Interrupt timer clock tick
+*/
+#pragma vector=TIMERA0_VECTOR
+__interrupt void Timer_Tick(void)
+{
+    // Wake up:
+    __bic_SR_register_on_exit(LPM3_bits);
+}
+
 
 /*
  * main.c
