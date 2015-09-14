@@ -141,5 +141,17 @@ __interrupt void Timer_Tick(void)
 int main(void) {
     WDTCTL = WDTPW | WDTHOLD;   // Stop watchdog timer
     
+    // Loop forever
+    while (1)
+    {
+        // Go to sleep until a clock tick:
+        __bis_SR_register(LPM3_bits);
+        
+        // The unit is awake if here
+        lfsr_16_14();
+        transmitData(LFSR_WORD);
+    }
+    
+    
     return 0;
 }
