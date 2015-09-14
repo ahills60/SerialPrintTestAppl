@@ -7,6 +7,10 @@ void COM_Init(void);
 
 
 // Ancillary functions
+
+/*
+    Serial port communication initialisation
+*/
 void COM_Init(void)
 {
     P3SEL |= 0x30;                  // P3.4,.5 = USCI_A0 TXD/RXD
