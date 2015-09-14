@@ -6,6 +6,10 @@
 void COM_Init(void);
 void TXString(*char, unsigned int);
 void transmitData(unsigned int);
+void lfsr_16_14(void);
+
+// Global variables
+unsigned int LFSR_WORD = 0x0001;
 
 // Ancillary functions
 
@@ -103,6 +107,19 @@ void transmitData(unsigned int data)
     
     // Transmit via serial
     TXString(output, 24);
+}
+
+/*
+    Apply a round of the 16-bit LFSR with a 14-bit sequence.
+*/
+void lfsr_16_14(void)
+{
+    unsigned int bit;
+    
+    // 14 bit sequence:
+    bit = ((LFSR_WORD >> 0) ^ (LFSR_WORD >> 1) ^ (LFSR_WORD >> 3) ^ (LFSR_WORD >> 5)) & 0x0001;
+    
+    LFSR_WORD = (LFSR_WORD >> 1) | (bit << 13);
 }
 
 /*
