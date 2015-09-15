@@ -131,7 +131,7 @@ void lfsr_16_14(void)
 __interrupt void Timer_Tick(void)
 {
     // Wake up:
-    __bic_SR_register_on_exit(LPM3_bits);
+    __bic_SR_register_on_exit(CPUOFF);
 }
 
 
@@ -145,7 +145,7 @@ int main(void) {
     while (1)
     {
         // Go to sleep until a clock tick:
-        __bis_SR_register(LPM3_bits);
+        __bis_SR_register(CPUOFF | GIE);
         
         // The unit is awake if here
         lfsr_16_14();
