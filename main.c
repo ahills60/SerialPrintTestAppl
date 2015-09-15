@@ -141,6 +141,15 @@ __interrupt void Timer_Tick(void)
 int main(void) {
     WDTCTL = WDTPW | WDTHOLD;   // Stop watchdog timer
     
+    // Initialise the board-specific hardware
+    BSP_Init();
+    
+    // Initialise the timer
+    BCSCTL3 |= LFXT1S_2;                        // LFXT1 = VLO
+    TACCTL0 = CCIE;                             // TACCR0 interrupt enabled
+    TACCR0 = 11628;                             // Approximately 1 sec
+    TACTL = TASSEL_1 | MC_1;                    // ACLK, upmode;
+    
     // Loop forever
     while (1)
     {
