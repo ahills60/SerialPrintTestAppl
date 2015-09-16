@@ -34,7 +34,7 @@ void COM_Init(void)
 #if (BSP_CONFIG_CLOCK_MHZ_SELECT == 1)
     UCA0BR0 = 104;                  // 9600 from 1 MHz
     UCA0BR1 = 0;
-    UCA0MCTL = UCBRS_1;
+    UCA0MCTL = UCBRS0; //UCBRS_1;
 #elif (BSP_CONFIG_CLOCK_MHZ_SELECT ==2)
     UCA0BR0 = 0xDA;                           // 9600 from 2Mhz
     UCA0BR1 = 0x0;
