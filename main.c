@@ -12,6 +12,7 @@ void COM_Init(void);
 void TXString(char*, unsigned int);
 void transmitData(void);
 void lfsr_16_14(void);
+void lfsr_16_16(void);
 
 __interrupt void Timer_Tick(void);
 
@@ -133,6 +134,19 @@ void lfsr_16_14(void)
     bit = ((LFSR_WORD >> 0) ^ (LFSR_WORD >> 1) ^ (LFSR_WORD >> 3) ^ (LFSR_WORD >> 5)) & 0x0001;
     
     LFSR_WORD = (LFSR_WORD >> 1) | (bit << 13);
+}
+
+/*
+    Apply a round of the 16-bit LFSR with a 16-bit sequence.
+*/
+void lfsr_16_16(void)
+{
+    unsigned int bit;
+
+    // 16 bit sequence:
+    bit = ((LFSR_WORD >> 0) ^ (LFSR_WORD >> 2) ^ (LFSR_WORD >> 3) ^ (LFSR_WORD >> 5)) & 0x0001;
+
+    LFSR_WORD = (LFSR_WORD >> 1) | (bit << 15);
 }
 
 /*
