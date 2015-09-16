@@ -185,7 +185,7 @@ int main(void) {
         
         // The unit is awake if here
         lfsr_16_14();
-        transmitData(LFSR_WORD);
+        transmitData();
     }
     
     
