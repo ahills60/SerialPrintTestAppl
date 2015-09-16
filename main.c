@@ -169,6 +169,8 @@ int main(void) {
     // Initialise the board-specific hardware
     // BSP_Init();
     
+    COM_Init();
+
     // Initialise the timer
     BCSCTL3 |= LFXT1S_2;                        // LFXT1 = VLO
     TACCTL0 = CCIE;                             // TACCR0 interrupt enabled
