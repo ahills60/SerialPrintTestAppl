@@ -1,6 +1,7 @@
 #include <msp430.h> 
-#include <string.h>
-#include "bsp.h"
+//#include <string.h>
+//#include "bsp.h"
+
 
 // Prototypes:
 void COM_Init(void);
