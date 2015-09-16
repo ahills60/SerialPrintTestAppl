@@ -69,6 +69,8 @@ void COM_Init(void)
 
     UCA0CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
     IE2 |= UCA0RXIE;                          // Enable USCI_A0 RX interrupt
+
+    // __bis_SR_register(LPM0_bits + GIE);
     __enable_interrupt();
 }
 
