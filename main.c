@@ -5,7 +5,7 @@
 
 // Prototypes:
 void COM_Init(void);
-void TXString(*char, unsigned int);
+void TXString(char*, unsigned int);
 void transmitData(unsigned int);
 void lfsr_16_14(void);
 
@@ -68,13 +68,13 @@ void COM_Init(void)
 /*
     Transmit a string
 */
-void TXString(*char string, unsigned int len)
+void TXString(char *str, unsigned int len)
 {
     unsigned int ptr;
     
-    for (pointer = 0; pointer < len; pointer++)
+    for (ptr = 0; ptr < len; ptr++)
     {
-        UCA0TXBUF = string[pointer];        // Fill the buffer with this character
+        UCA0TXBUF = str[ptr];        // Fill the buffer with this character
         while (!(IFG2 & UCA0TXIFG));        // Hold until ready
     }
 }
