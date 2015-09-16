@@ -25,7 +25,10 @@ unsigned int LFSR_WORD = 0x0001;
 */
 void COM_Init(void)
 {
-    P3SEL |= 0x30;                  // P3.4,.5 = USCI_A0 TXD/RXD
+	UCA0CTL1 = UCSWRST;
+
+    P3SEL |= 0x30 | 0x0E;                  // P3.4,.5 = USCI_A0 TXD/RXD
+    P3DIR |= 0x0B;					// Serial direction
     UCA0CTL1 = UCSSEL_2;
 
 #if (BSP_CONFIG_CLOCK_MHZ_SELECT == 1)
