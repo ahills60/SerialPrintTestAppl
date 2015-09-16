@@ -91,33 +91,33 @@ void TXString(char *str, unsigned int len)
 */
 void transmitData(void)
 {
-    // Offset Idx:    012345678901234567890123
-    char output[] = {"0000000000000000 (00000)"};
-    unsigned int mask 0x8000;
-    int n;
+    // Offset Idx:       0 1234567890123456789012345
+    char output[26] = {"\r\n0000000000000000 (00000)"};
+    unsigned int mask = 0x0001;
     unsigned int data = LFSR_WORD;
+    int n, m;
     
     // Binary sequence
-    for (n = 0; n < 16; n++)
+    for (n = 16, m = 17; n > 0; n--, m--)
     {
         if (mask & data)
-            output[n] = '1';
-        mask = (mask >> 1) & 0x7FFF;
+            output[m] = '1';
+        mask <<= 1;
     }
     
     // Now translate the number to text
+    output[24] = '0' + (data % 10);
+    data /= 10;
+    output[23] = '0' + (data % 10);
+    data /= 10;
     output[22] = '0' + (data % 10);
     data /= 10;
     output[21] = '0' + (data % 10);
     data /= 10;
     output[20] = '0' + (data % 10);
-    data /= 10;
-    output[19] = '0' + (data % 10);
-    data /= 10;
-    output[18] = '0' + (data % 10);
     
     // Transmit via serial
-    TXString(output, 24);
+    TXString(output, 26);
 }
 
 /*
