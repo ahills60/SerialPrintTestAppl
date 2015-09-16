@@ -10,7 +10,7 @@
 // Prototypes:
 void COM_Init(void);
 void TXString(char*, unsigned int);
-void transmitData(unsigned int);
+void transmitData(void);
 void lfsr_16_14(void);
 
 __interrupt void Timer_Tick(void);
@@ -89,12 +89,13 @@ void TXString(char *str, unsigned int len)
 /*
     Convert this data and transmit via serial
 */
-void transmitData(unsigned int data)
+void transmitData(void)
 {
     // Offset Idx:    012345678901234567890123
     char output[] = {"0000000000000000 (00000)"};
     unsigned int mask 0x8000;
     int n;
+    unsigned int data = LFSR_WORD;
     
     // Binary sequence
     for (n = 0; n < 16; n++)
