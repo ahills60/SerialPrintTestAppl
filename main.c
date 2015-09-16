@@ -1,3 +1,7 @@
+// Defines
+#define BSP_CONFIG_CLOCK_MHZ_SELECT 1
+
+// Includes
 #include <msp430.h> 
 //#include <string.h>
 //#include "bsp.h"
