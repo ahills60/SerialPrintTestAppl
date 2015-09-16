@@ -172,11 +172,16 @@ int main(void) {
     COM_Init();
 
     // Initialise the timer
+
+    BCSCTL1 = CALBC1_1MHZ;
+    DCOCTL = CALDCO_1MHZ;
+
     BCSCTL3 |= LFXT1S_2;                        // LFXT1 = VLO
     TACCTL0 = CCIE;                             // TACCR0 interrupt enabled
     TACCR0 = 11628;                             // Approximately 1 sec
     TACTL = TASSEL_1 | MC_1;                    // ACLK, upmode;
     
+
     // Loop forever
     while (1)
     {
