@@ -73,3 +73,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Debug and release files
+Debug/
+Release/
