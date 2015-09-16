@@ -184,7 +184,7 @@ int main(void) {
         __bis_SR_register(CPUOFF | GIE);
         
         // The unit is awake if here
-        lfsr_16_14();
+        lfsr_16_16();
         transmitData();
     }
     
