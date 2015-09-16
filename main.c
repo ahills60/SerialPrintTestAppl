@@ -167,7 +167,7 @@ int main(void) {
     WDTCTL = WDTPW | WDTHOLD;   // Stop watchdog timer
     
     // Initialise the board-specific hardware
-    BSP_Init();
+    // BSP_Init();
     
     // Initialise the timer
     BCSCTL3 |= LFXT1S_2;                        // LFXT1 = VLO
